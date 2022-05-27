@@ -1,0 +1,12 @@
+1. dht11try.py
+2. i2cscan.py
+3. oledTest.py
+4. dhtoled.py
+5. DustValue.py
+6. airqoled.py
+7. config.py, cnt.py
+8. openweathermap.py
+9. urllab.py
+10. mqttTemp.py
+11. mqttLass.py
+12. am2320.py , tryAm2320.py

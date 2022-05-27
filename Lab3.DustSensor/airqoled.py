@@ -3,7 +3,7 @@ from machine import Pin, ADC
 import time
 
 p0 = Pin(13, Pin.OUT)
-adc = ADC(Pin(35))
+adc = ADC(Pin(34))
 def measure():
  p0.value(1)                       # d?but du cr?neau
  time.sleep_us(280)         # les 0.28 ms

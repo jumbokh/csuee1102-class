@@ -14,7 +14,6 @@
 * [Lab3. Dust Sensor](https://github.com/jumbokh/csuee1102-class/tree/main/Lab3.DustSensor)
 ### with NetWork
 * [Lab4. WiFi Connect](https://github.com/jumbokh/csuee1102-class/tree/main/Lab4.WiFi)
-#### iot network
 * [Lab5. MQTT](https://github.com/jumbokh/csuee1102-class/tree/main/Lab5.%20MQTT)
 * [Lab6. LineBot](https://github.com/jumbokh/csuee1102-class/tree/main/Lab6.%20LineBot)
 * [Lab7. LASS](https://github.com/jumbokh/csuee1102-class/tree/main/Lab7.%20LASS)

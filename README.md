@@ -4,6 +4,10 @@
 #### [參考文件](https://github.com/jumbokh/csuee1102-class/tree/main/refers)
 * [setup IDE -- Thonny](https://github.com/jumbokh/csuee1102-class/blob/main/refers/%E7%AC%AC1%E5%80%8BMicroPython%E7%A8%8B%E5%BC%8F(Thonny%E7%87%92%E9%8C%84%E7%89%88).pdf)
     * [Firmware](https://github.com/jumbokh/csuee1102-class/blob/main/esp32-20210902-v1.17.bin)
+* [Book Ch9. WiFi](https://github.com/jumbokh/csuee1102-class/tree/main/refers/ch09)
+* [Book Ch10. IFTTT+Line Notify](https://github.com/jumbokh/csuee1102-class/tree/main/refers/ch10)
+* [Book Ch11. Cloud Platform](https://github.com/jumbokh/csuee1102-class/tree/main/refers/ch11)
+* [Book Ch12. MQTT](https://github.com/jumbokh/csuee1102-class/tree/main/refers/ch12)
 ## Lab
 * [Lab1.DHT11](https://github.com/jumbokh/csuee1102-class/tree/main/Lab1.DHT11)
 * [Lab2.oled -- SSD1306](https://github.com/jumbokh/csuee1102-class/tree/main/Lab2.OLED)

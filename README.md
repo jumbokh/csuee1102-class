@@ -22,5 +22,5 @@
 * [Lab9. openWeatherMap](https://github.com/jumbokh/csuee1102-class/tree/main/Lab9.%20openWeatherMap)
 * [Lab10. BLE](https://github.com/jumbokh/csuee1102-class/tree/main/Lab11.%20BLE)
 ##
-### Text book
+### [Text book](https://www.drmaster.com.tw/Bookinfo.asp?BookID=MP32105)
 * ![MP32105](https://github.com/jumbokh/csuee1102-class/blob/main/refers/MP32105.jpg)

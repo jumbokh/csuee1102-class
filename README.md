@@ -8,7 +8,7 @@
 * [Book Ch10. IFTTT+Line Notify](https://github.com/jumbokh/csuee1102-class/tree/main/refers/ch10)
 * [Book Ch11. Cloud Platform](https://github.com/jumbokh/csuee1102-class/tree/main/refers/ch11)
 * [Book Ch12. MQTT](https://github.com/jumbokh/csuee1102-class/tree/main/refers/ch12)
-## Lab [lab step](https://github.com/jumbokh/csuee1102-class/blob/main/refers/LabPractice.txt)
+## Lab [(lab step)](https://github.com/jumbokh/csuee1102-class/blob/main/refers/LabPractice.txt)
 * [Lab1.DHT11](https://github.com/jumbokh/csuee1102-class/tree/main/Lab1.DHT11)
 * [Lab2.oled -- SSD1306](https://github.com/jumbokh/csuee1102-class/tree/main/Lab2.OLED)
 * [Lab3. Dust Sensor](https://github.com/jumbokh/csuee1102-class/tree/main/Lab3.DustSensor)

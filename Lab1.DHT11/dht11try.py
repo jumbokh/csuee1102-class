@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import machine, dht
 import utime
 

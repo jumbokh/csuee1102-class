@@ -5,7 +5,7 @@
 * ESP32 for Micropython and Thonny
 * Basic Digital and analog Lab
     * DHT11 Temperature and Humidity sensor
-    * I2C ssd1306 OLED display
+    * I2C ssd1306 OLED display [ssd1306 lib](https://github.com/micropython/micropython/blob/master/drivers/display/ssd1306.py)
     * Sharp dust sensor GP2Y1010AU0F
     * [PM2.5 開放資料入口網站](https://pm25.lass-net.org/)
     * [g0v](https://v5.airmap.g0v.tw/#/map)

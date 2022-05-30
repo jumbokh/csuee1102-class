@@ -4,7 +4,7 @@ import config
 
 mq_server = 'broker.emqx.io'
 mq_id = 'esp00001' 
-mq_topic = b'csuclass/lass'
+mq_topic = b'room_status'
 mq_user=''
 mq_pass=''
 SSID = config.SSID        # WiFi名稱

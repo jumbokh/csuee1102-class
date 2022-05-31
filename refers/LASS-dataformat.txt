@@ -1,0 +1,13 @@
+15:31:19|
+LASS/Test/HELLO_APP|
+ver_format=1|
+app=HELLO_APP|
+ver_app=0.6|
+device_id=LASS-Hello|
+tick=68882494|
+date=2/8/15|
+time=7:30:45|
+device=LinkItONE|
+values=100.00,1.00,0.00,60.48,856.27|
+gps=$GPGGA,073045.099,4402.0319,N,13124.7264,E,0,0,,128.5,M,21.5,M,,*45
+收端時間|MQTT Topic|資料

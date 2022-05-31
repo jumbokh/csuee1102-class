@@ -36,3 +36,5 @@
 ##
 ### [Text book](https://www.drmaster.com.tw/Bookinfo.asp?BookID=MP32105)
 * ![MP32105](https://github.com/jumbokh/csuee1102-class/blob/main/refers/MP32105.jpg)
+* ![Node-red](https://github.com/jumbokh/csuee1102-class/blob/main/refers/book1.JPG)
+* ![Node-red cat](https://github.com/jumbokh/csuee1102-class/blob/main/refers/book2.JPG)

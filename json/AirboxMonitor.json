@@ -1,0 +1,218 @@
+[
+    {
+        "id": "ce1b65ba.20b3e8",
+        "type": "inject",
+        "z": "c1705d0dc49b5685",
+        "name": "Fake lass data",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "|FAKE=1|device_id=jumbokh|date=2017-12-1|time=03:43:56|device=Nodemcu|s_d0=60.00|s_t0=23.40|s_h0=80.20|s_d1=0.00",
+        "payloadType": "str",
+        "x": 280,
+        "y": 120,
+        "wires": [
+            [
+                "27bc2cc4.887534",
+                "7c5bef2c.7d492",
+                "226f18f3.ef7ec8"
+            ]
+        ]
+    },
+    {
+        "id": "27bc2cc4.887534",
+        "type": "function",
+        "z": "c1705d0dc49b5685",
+        "name": "Temperature",
+        "func": "var MsgA =  \n{Temp: msg.payload.substring(1).replace(/=/gi,\"|\").\n  split(\"|\").slice(13,14).toString()};  //\nMsgA.payload = MsgA.Temp;\nMsgA.topic = \"csuclass/lass/T\";\n\nreturn MsgA;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 510,
+        "y": 100,
+        "wires": [
+            [
+                "c9c0ed30.1eaad",
+                "add49a.16f0db68"
+            ]
+        ]
+    },
+    {
+        "id": "7c5bef2c.7d492",
+        "type": "function",
+        "z": "c1705d0dc49b5685",
+        "name": "Humidity",
+        "func": "var MsgA =  \n{Humi: msg.payload.substring(1).replace(/=/gi,\"|\").\n  split(\"|\").slice(15,16).toString()};  //\nMsgA.payload = MsgA.Humi;\nMsgA.topic = \"csuclass/lass/H\";\n\nreturn MsgA;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 511.1000061035156,
+        "y": 187,
+        "wires": [
+            [
+                "c9c0ed30.1eaad",
+                "add49a.16f0db68"
+            ]
+        ]
+    },
+    {
+        "id": "226f18f3.ef7ec8",
+        "type": "function",
+        "z": "c1705d0dc49b5685",
+        "name": "PM2.5",
+        "func": "var MsgC =  \n{PM25: msg.payload.substring(1).replace(/=/gi,\"|\").\n  split(\"|\").slice(11,12).toString()};  //\nMsgC.payload = MsgC.PM25;\nMsgC.topic = \"csuclass/lass/pm25\";\n\nreturn MsgC;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 507.1000061035156,
+        "y": 257,
+        "wires": [
+            [
+                "c9c0ed30.1eaad",
+                "add49a.16f0db68"
+            ]
+        ]
+    },
+    {
+        "id": "c9c0ed30.1eaad",
+        "type": "debug",
+        "z": "c1705d0dc49b5685",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 818.1000366210938,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "85e6d0dd.0cbaf",
+        "type": "mqtt in",
+        "z": "c1705d0dc49b5685",
+        "name": "LASS",
+        "topic": "csuclass/lass/box",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6d8f37ff.1a2258",
+        "inputs": 0,
+        "x": 280.1000061035156,
+        "y": 246,
+        "wires": [
+            [
+                "27bc2cc4.887534",
+                "7c5bef2c.7d492",
+                "226f18f3.ef7ec8"
+            ]
+        ]
+    },
+    {
+        "id": "add49a.16f0db68",
+        "type": "thingspeak42",
+        "z": "c1705d0dc49b5685",
+        "name": "AirBoxMonitor",
+        "delay": "15",
+        "topic1": "csuclass/lass/T",
+        "topic2": "csuclass/lass/H",
+        "topic3": "csuclass/lass/pm25",
+        "topic4": "",
+        "topic5": "",
+        "topic6": "",
+        "topic7": "",
+        "topic8": "",
+        "endpoint": "https://thingspeak.com",
+        "x": 811.1000366210938,
+        "y": 225,
+        "wires": []
+    },
+    {
+        "id": "3a9496c7.c5fcca",
+        "type": "mqtt in",
+        "z": "c1705d0dc49b5685",
+        "name": "ThingSpeak MQTT",
+        "topic": "channels/1752300/subscribe",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5a47682e.a025d8",
+        "inputs": 0,
+        "x": 300,
+        "y": 360,
+        "wires": [
+            [
+                "766d2fe2.6a4cb"
+            ]
+        ]
+    },
+    {
+        "id": "766d2fe2.6a4cb",
+        "type": "debug",
+        "z": "c1705d0dc49b5685",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "6d8f37ff.1a2258",
+        "type": "mqtt-broker",
+        "name": "EMQX",
+        "broker": "broker.emqx.io",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "5a47682e.a025d8",
+        "type": "mqtt-broker",
+        "name": "ThingSpeak",
+        "broker": "mqtt3.thingspeak.com",
+        "port": "1883",
+        "clientid": "HB4yOw84CScNHSkhORopCRM",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": ""
+    }
+]

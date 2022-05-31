@@ -1,0 +1,427 @@
+[
+    {
+        "id": "fe060665.a62aa8",
+        "type": "http request",
+        "z": "144edd958dfc4e96",
+        "name": "temp request",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/C-A0007-001?Authorization=CWB-45C48B39-38D8-4EF4-9877-775F8B5D9B64&downloadType=WEB&format=XML",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 530,
+        "y": 100,
+        "wires": [
+            [
+                "6fb353fd.56cefc",
+                "8991327c.52213"
+            ]
+        ]
+    },
+    {
+        "id": "6dfe150e.34997c",
+        "type": "inject",
+        "z": "144edd958dfc4e96",
+        "name": "",
+        "repeat": "7200",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 359,
+        "y": 100,
+        "wires": [
+            [
+                "fe060665.a62aa8"
+            ]
+        ]
+    },
+    {
+        "id": "6fb353fd.56cefc",
+        "type": "debug",
+        "z": "144edd958dfc4e96",
+        "name": "temp request result",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 729,
+        "y": 82,
+        "wires": []
+    },
+    {
+        "id": "25794974.703ef6",
+        "type": "debug",
+        "z": "144edd958dfc4e96",
+        "name": "xml to json",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 825,
+        "y": 116,
+        "wires": []
+    },
+    {
+        "id": "cb8f5638.8c35e8",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "set global temp",
+        "func": "context.global.temp=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 830,
+        "y": 176,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8991327c.52213",
+        "type": "xml",
+        "z": "144edd958dfc4e96",
+        "name": "",
+        "attr": "",
+        "chr": "",
+        "x": 678,
+        "y": 140,
+        "wires": [
+            [
+                "cb8f5638.8c35e8",
+                "25794974.703ef6"
+            ]
+        ]
+    },
+    {
+        "id": "b389c015.761a2",
+        "type": "http in",
+        "z": "144edd958dfc4e96",
+        "name": "city",
+        "url": "/city",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 324,
+        "y": 387,
+        "wires": [
+            [
+                "fcffbd85.31821"
+            ]
+        ]
+    },
+    {
+        "id": "74e7f25f.d88afc",
+        "type": "http response",
+        "z": "144edd958dfc4e96",
+        "name": "http out",
+        "x": 846,
+        "y": 387,
+        "wires": []
+    },
+    {
+        "id": "fcffbd85.31821",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "city name to number",
+        "func": "\nvar cityname;\ncontext.global.locationnumber=0;\ntry {\n   cityname=msg.payload.cityname;\n   \n   if(cityname.indexOf('台北')!=-1 ||cityname.indexOf('臺北')!=-1 )\n{\n    context.global.locationnumber=0;\n   \n}\nelse if(cityname.indexOf('新北')!=-1)\n{\n    context.global.locationnumber=1;\n   \n}\nelse if(cityname.indexOf('桃園')!=-1) //\n{\n    context.global.locationnumber=2;\n   \n}\nelse if(cityname.indexOf('臺中')!=-1 || cityname.indexOf('台中')!=-1) \n{\n    context.global.locationnumber= 3;\n   \n}\nelse if(cityname.indexOf('臺南')!=-1 || cityname.indexOf('台南')!=-1) \n{\n    context.global.locationnumber= 4;\n   \n}\nelse if(cityname.indexOf('高雄')!=-1 ) \n{\n    context.global.locationnumber= 5 ;\n   \n}\nelse if(cityname.indexOf('基隆')!=-1 ) \n{\n    context.global.locationnumber= 6 ;\n   \n}\nelse if(cityname.indexOf('新竹縣')!=-1 ) \n{\n    context.global.locationnumber= 7 ;\n   \n}\nelse if(cityname.indexOf('新竹')!=-1 ) \n{\n    context.global.locationnumber= 8 ;\n   \n}\nelse if(cityname.indexOf('連江')!=-1 ) \n{\n    context.global.locationnumber= 21 ;\n   \n}\nelse  \n{\n    context.global.locationnumber= 0 ;\n   \n}\n   \n   \n}\ncatch(err) {\n    cityname=\"台北\";\n    context.global.locationnumber=0;\n}\n\n\n msg.payload= context.global.locationnumber;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 504,
+        "y": 387,
+        "wires": [
+            [
+                "c9740d7f.e96bd",
+                "9fb41815.dbdcc8"
+            ]
+        ]
+    },
+    {
+        "id": "c9740d7f.e96bd",
+        "type": "debug",
+        "z": "144edd958dfc4e96",
+        "name": "city name to number result",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 760,
+        "y": 336,
+        "wires": []
+    },
+    {
+        "id": "7f46f572.4708ec",
+        "type": "http in",
+        "z": "144edd958dfc4e96",
+        "name": "tempjson",
+        "url": "/tempjson",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 331,
+        "y": 257,
+        "wires": [
+            [
+                "ecf2189c.210bf8"
+            ]
+        ]
+    },
+    {
+        "id": "20dc5b2f.f22514",
+        "type": "http response",
+        "z": "144edd958dfc4e96",
+        "name": "http out",
+        "x": 807,
+        "y": 256,
+        "wires": []
+    },
+    {
+        "id": "ecf2189c.210bf8",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "show raw data",
+        "func": "//var loc=msg.payload.loc;\nvar rawdata=context.global.temp;\nmsg.playload=rawdata.cwbopendata.dataset[0].location;\nreturn msg;\n\n/*\nvar locationName=rawdata.cwbopendata.dataset[0].location[loc].locationName[0];\nvar period0max=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].parameter[0].parameterName[0];\nvar period0min=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[2].time[0].parameter[0].parameterName[0];\nvar period0start=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].startTime[0];\nvar period0end=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].endTime[0];\n\nvar  starthourtemp= period0start.split(\"T\");\nvar starthour=starthourtemp[1].split(\":\")[0];\nvar  endhourtemp= period0end.split(\"T\");\nvar endhour=endhourtemp[1].split(\":\")[0];\n\nmsg.payload={\"locationName\":locationName,\"time\":starthour+\"-\"+endhour, \"max\":period0max,\n\"min\":period0min};\nreturn msg;\n*/\n\n/*if(time.getHours()<18)\n{\nmsg.payload={\"locationName\":locationName,\"todaymax\":period1max, \"todaymin\":period1min,\n             \"tonightmax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\nelse\nmsg.payload={\"locationName\":locationName,\"tonightmax\":period1max, \"tonightmin\":period1min,\n             \"todaymax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\n\n*/\n\n\n\n\n//msg.payload=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[1];\n\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 547,
+        "y": 257,
+        "wires": [
+            [
+                "20dc5b2f.f22514",
+                "6dd2ec78.7f5ea4"
+            ]
+        ]
+    },
+    {
+        "id": "6dd2ec78.7f5ea4",
+        "type": "debug",
+        "z": "144edd958dfc4e96",
+        "name": "temp data process",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 778,
+        "y": 215,
+        "wires": []
+    },
+    {
+        "id": "1e7d57a7.9bceb8",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "List locationname",
+        "func": "var rawdata=context.global.temp;\nvar location=rawdata.cwbopendata.dataset[0].location;\nvar citynumber=location.length;\nvar cityarray=[];\nvar i;\nfor (i=0; i<citynumber;i++)\n{\ncityarray[i]=location[i].locationName[0];\n}\n\n msg.payload=cityarray;\n\nreturn msg;\n\n/*\nvar locationName=rawdata.cwbopendata.dataset[0].location[loc].locationName[0];\nvar period0max=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].parameter[0].parameterName[0];\nvar period0min=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[2].time[0].parameter[0].parameterName[0];\nvar period0start=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].startTime[0];\nvar period0end=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].endTime[0];\n\nvar  starthourtemp= period0start.split(\"T\");\nvar starthour=starthourtemp[1].split(\":\")[0];\nvar  endhourtemp= period0end.split(\"T\");\nvar endhour=endhourtemp[1].split(\":\")[0];\n\nmsg.payload={\"locationName\":locationName,\"time\":starthour+\"-\"+endhour, \"max\":period0max,\n\"min\":period0min};\nreturn msg;\n*/\n\n/*if(time.getHours()<18)\n{\nmsg.payload={\"locationName\":locationName,\"todaymax\":period1max, \"todaymin\":period1min,\n             \"tonightmax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\nelse\nmsg.payload={\"locationName\":locationName,\"tonightmax\":period1max, \"tonightmin\":period1min,\n             \"todaymax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\n\n*/\n\n\n\n\n//msg.payload=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[1];\n\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 548,
+        "y": 295,
+        "wires": [
+            [
+                "16bc7465.39076c"
+            ]
+        ]
+    },
+    {
+        "id": "16bc7465.39076c",
+        "type": "debug",
+        "z": "144edd958dfc4e96",
+        "name": "List all locationnames ",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 767,
+        "y": 295,
+        "wires": []
+    },
+    {
+        "id": "9fb41815.dbdcc8",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "max min",
+        "func": "var loc=msg.payload;\nvar rawdata=context.global.temp;\nvar locationName=rawdata.cwbopendata.dataset[0].location[loc].locationName[0];\nvar period0max=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].parameter[0].parameterName[0];\nvar period0min=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[2].time[0].parameter[0].parameterName[0];\nvar period0start=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].startTime[0];\nvar period0end=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].endTime[0];\n\nvar  starthourtemp= period0start.split(\"T\");\nvar starthour=starthourtemp[1].split(\":\")[0];\nvar  endhourtemp= period0end.split(\"T\");\nvar endhour=endhourtemp[1].split(\":\")[0];\n\nmsg.payload={\"locationName\":locationName,\"time\":starthour+\"-\"+endhour, \"max\":period0max,\n\"min\":period0min};\nreturn msg;\n\n/*if(time.getHours()<18)\n{\nmsg.payload={\"locationName\":locationName,\"todaymax\":period1max, \"todaymin\":period1min,\n             \"tonightmax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\nelse\nmsg.payload={\"locationName\":locationName,\"tonightmax\":period1max, \"tonightmin\":period1min,\n             \"todaymax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\n\n*/\n\n\n\n\n//msg.payload=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[1];\n\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 702,
+        "y": 387,
+        "wires": [
+            [
+                "74e7f25f.d88afc"
+            ]
+        ]
+    },
+    {
+        "id": "f862e33a.af1bd",
+        "type": "debug",
+        "z": "144edd958dfc4e96",
+        "name": "report result",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 829,
+        "y": 508,
+        "wires": []
+    },
+    {
+        "id": "7aaca32e.e7578c",
+        "type": "inject",
+        "z": "144edd958dfc4e96",
+        "name": "inject city options",
+        "repeat": "7200",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 329,
+        "y": 449,
+        "wires": [
+            [
+                "6064e36f.967cac"
+            ]
+        ]
+    },
+    {
+        "id": "6064e36f.967cac",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "set options",
+        "func": "var rawdata=context.global.temp;\nvar location=rawdata.cwbopendata.dataset[0].location;\nvar citynumber=location.length;\nvar i;\n\nvar cityarray=[];\nfor (i=0; i<citynumber;i++)\n{\ncityarray[i]=location[i].locationName[0];\n\n\n}\nmsg.options=cityarray;\nreturn msg;\n\n/*\nvar locationName=rawdata.cwbopendata.dataset[0].location[loc].locationName[0];\nvar period0max=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].parameter[0].parameterName[0];\nvar period0min=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[2].time[0].parameter[0].parameterName[0];\nvar period0start=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].startTime[0];\nvar period0end=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].endTime[0];\n\nvar  starthourtemp= period0start.split(\"T\");\nvar starthour=starthourtemp[1].split(\":\")[0];\nvar  endhourtemp= period0end.split(\"T\");\nvar endhour=endhourtemp[1].split(\":\")[0];\n\nmsg.payload={\"locationName\":locationName,\"time\":starthour+\"-\"+endhour, \"max\":period0max,\n\"min\":period0min};\nreturn msg;\n*/\n\n/*if(time.getHours()<18)\n{\nmsg.payload={\"locationName\":locationName,\"todaymax\":period1max, \"todaymin\":period1min,\n             \"tonightmax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\nelse\nmsg.payload={\"locationName\":locationName,\"tonightmax\":period1max, \"tonightmin\":period1min,\n             \"todaymax\":period2max, \"tonightmin\":period2min,\"tomorrowmax\":period3max, \"tomorrowmin\":period3min};\n}\n\n*/\n\n\n\n\n//msg.payload=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[1];\n\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 511,
+        "y": 449,
+        "wires": [
+            [
+                "e5f3a01.2868c6"
+            ]
+        ]
+    },
+    {
+        "id": "f2b37c12.b7a4d",
+        "type": "inject",
+        "z": "144edd958dfc4e96",
+        "name": "inject city",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 348,
+        "y": 295,
+        "wires": [
+            [
+                "1e7d57a7.9bceb8"
+            ]
+        ]
+    },
+    {
+        "id": "49df64d3.a989ec",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "city to number",
+        "func": "\nvar cityname;\ncontext.global.locationnumber=0;\ntry {\n   cityname=msg.payload;\n   \n   if(cityname.indexOf('台北')!=-1 ||cityname.indexOf('臺北')!=-1 )\n{\n    context.global.locationnumber=0;\n   \n}\nelse if(cityname.indexOf('新北')!=-1)\n{\n    context.global.locationnumber=1;\n   \n}\nelse if(cityname.indexOf('桃園')!=-1) //\n{\n    context.global.locationnumber=2;\n   \n}\nelse if(cityname.indexOf('臺中')!=-1 || cityname.indexOf('台中')!=-1) \n{\n    context.global.locationnumber= 3;\n   \n}\nelse if(cityname.indexOf('臺南')!=-1 || cityname.indexOf('台南')!=-1) \n{\n    context.global.locationnumber= 4;\n   \n}\nelse if(cityname.indexOf('高雄')!=-1 ) \n{\n    context.global.locationnumber= 5 ;\n   \n}\nelse if(cityname.indexOf('基隆')!=-1 ) \n{\n    context.global.locationnumber= 6 ;\n   \n}\nelse if(cityname.indexOf('新竹縣')!=-1 ) \n{\n    context.global.locationnumber= 7 ;\n   \n}\nelse if(cityname.indexOf('新竹')!=-1 ) \n{\n    context.global.locationnumber= 8 ;\n   \n}\nelse if(cityname.indexOf('連江')!=-1 ) \n{\n    context.global.locationnumber= 21 ;\n   \n}\nelse  \n{\n    context.global.locationnumber= 0 ;\n   \n}\n   \n   \n}\ncatch(err) {\n    cityname=\"台北\";\n    context.global.locationnumber=0;\n}\n\n\n msg.payload= context.global.locationnumber;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 514,
+        "y": 536,
+        "wires": [
+            [
+                "2a7c547e.122b1c"
+            ]
+        ]
+    },
+    {
+        "id": "2a7c547e.122b1c",
+        "type": "function",
+        "z": "144edd958dfc4e96",
+        "name": "report",
+        "func": "var loc=msg.payload;\nvar rawdata=context.global.temp;\nvar locationName=rawdata.cwbopendata.dataset[0].location[loc].locationName[0];\nvar period0max=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].parameter[0].parameterName[0];\nvar period0min=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[2].time[0].parameter[0].parameterName[0];\nvar period0start=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].startTime[0];\nvar period0end=rawdata.cwbopendata.dataset[0].location[loc].weatherElement[1].time[0].endTime[0];\n\nvar  starthourtemp= period0start.split(\"T\");\nvar starthour=starthourtemp[1].split(\":\")[0];\nvar  endhourtemp= period0end.split(\"T\");\nvar endhour=endhourtemp[1].split(\":\")[0];\n\nmsg.payload=locationName+starthour+\"到\"+endhour+\"點溫度最低\"+period0min+\"度最高\"+period0max+\"度\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 677,
+        "y": 536,
+        "wires": [
+            [
+                "f862e33a.af1bd",
+                "838e7155.243b1"
+            ]
+        ]
+    },
+    {
+        "id": "9d567c76.3deee",
+        "type": "debug",
+        "z": "144edd958dfc4e96",
+        "name": "selected city ",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 843,
+        "y": 430,
+        "wires": []
+    },
+    {
+        "id": "e5f3a01.2868c6",
+        "type": "ui_dropdown",
+        "z": "144edd958dfc4e96",
+        "name": "",
+        "label": "city options",
+        "place": "Select city",
+        "group": "e045c1fa.7a743",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "x": 668,
+        "y": 449,
+        "wires": [
+            [
+                "9d567c76.3deee",
+                "49df64d3.a989ec"
+            ]
+        ]
+    },
+    {
+        "id": "838e7155.243b1",
+        "type": "ui_text",
+        "z": "144edd958dfc4e96",
+        "group": "e045c1fa.7a743",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 810,
+        "y": 550,
+        "wires": []
+    },
+    {
+        "id": "e045c1fa.7a743",
+        "type": "ui_group",
+        "name": "City temperature",
+        "tab": "55628e0d.1afc3",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "55628e0d.1afc3",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard"
+    }
+]

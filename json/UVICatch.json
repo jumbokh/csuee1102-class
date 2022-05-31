@@ -1,0 +1,265 @@
+[
+    {
+        "id": "d70f9d13.4d3de",
+        "type": "http in",
+        "z": "aa59b6afa33706b9",
+        "name": "get UVI",
+        "url": "/UVI",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 270,
+        "y": 200,
+        "wires": [
+            [
+                "65dae696.2f3e18",
+                "94b22684.161848",
+                "5fbc5908.57db68"
+            ]
+        ]
+    },
+    {
+        "id": "65dae696.2f3e18",
+        "type": "http request",
+        "z": "aa59b6afa33706b9",
+        "name": "UVI request",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://data.epa.gov.tw/api/v2/aqx_p_237?api_key=d9b7900e-84f1-4c70-bb51-8f2effa92953",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 488,
+        "y": 219,
+        "wires": [
+            [
+                "11b14092.5d6c8f",
+                "58205e1.a85d4a"
+            ]
+        ]
+    },
+    {
+        "id": "a000d813.2585c8",
+        "type": "http response",
+        "z": "aa59b6afa33706b9",
+        "name": "",
+        "x": 996,
+        "y": 218,
+        "wires": []
+    },
+    {
+        "id": "58205e1.a85d4a",
+        "type": "debug",
+        "z": "aa59b6afa33706b9",
+        "name": "UVImessage",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 636,
+        "y": 284,
+        "wires": []
+    },
+    {
+        "id": "11b14092.5d6c8f",
+        "type": "json",
+        "z": "aa59b6afa33706b9",
+        "name": "json",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 635,
+        "y": 217,
+        "wires": [
+            [
+                "795b098f.61bd98",
+                "7ee43c00.e1cb64"
+            ]
+        ]
+    },
+    {
+        "id": "4393ba51.336604",
+        "type": "http in",
+        "z": "aa59b6afa33706b9",
+        "name": "get air",
+        "url": "/air",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 357,
+        "y": 471,
+        "wires": [
+            [
+                "f56e1f7f.56b2b",
+                "b81ecd4b.f4715"
+            ]
+        ]
+    },
+    {
+        "id": "f56e1f7f.56b2b",
+        "type": "http request",
+        "z": "aa59b6afa33706b9",
+        "name": "air request",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://data.epa.gov.tw/api/v2/AQX_P_237?format=json&offset=0&limit=1000&api_key=d9b7900e-84f1-4c70-bb51-8f2effa92953",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 499,
+        "y": 471,
+        "wires": [
+            [
+                "bb1f52e4.3364"
+            ]
+        ]
+    },
+    {
+        "id": "795b098f.61bd98",
+        "type": "function",
+        "z": "aa59b6afa33706b9",
+        "name": "UVI data process",
+        "func": "var n=context.global.uvnum;\nvar data=msg.payload;\nvar SiteName;\nvar UVI;\nvar County;\nvar time;\ntry\n{\nSiteName= data[n].SiteName;\nUVI= data[n].UVI;\nCounty=data[n].County;\ntime=data[n].PublishTime;\n}\ncatch(err) \n{\n SiteName= data[0].SiteName;\nUVI= data[0].UVI;\nCounty=data[0].County;\ntime=data[0].PublishTime;\n   \n}\n\n\nmsg.payload={\"SiteName\": County+SiteName, \"UVI\":UVI, \"time\":time};\n//msg.payload=data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 808,
+        "y": 219,
+        "wires": [
+            [
+                "a000d813.2585c8",
+                "cd54c09b.0fdde"
+            ]
+        ]
+    },
+    {
+        "id": "cd54c09b.0fdde",
+        "type": "debug",
+        "z": "aa59b6afa33706b9",
+        "name": "UVI process message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 898,
+        "y": 281,
+        "wires": []
+    },
+    {
+        "id": "94b22684.161848",
+        "type": "function",
+        "z": "aa59b6afa33706b9",
+        "name": "Set context.global.uvnum",
+        "func": "context.global.uvnum=msg.payload.uvnum;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 527,
+        "y": 119,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5fbc5908.57db68",
+        "type": "debug",
+        "z": "aa59b6afa33706b9",
+        "name": "monitor http in",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 417,
+        "y": 283,
+        "wires": []
+    },
+    {
+        "id": "62a89458.5bf51c",
+        "type": "http response",
+        "z": "aa59b6afa33706b9",
+        "name": "http out",
+        "x": 977,
+        "y": 470,
+        "wires": []
+    },
+    {
+        "id": "d86ca1ce.c9da7",
+        "type": "debug",
+        "z": "aa59b6afa33706b9",
+        "name": "air process message",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 887,
+        "y": 532,
+        "wires": []
+    },
+    {
+        "id": "691ff5b6.20c93c",
+        "type": "function",
+        "z": "aa59b6afa33706b9",
+        "name": "air data process",
+        "func": "var n=context.global.airnum;\nvar data=msg.payload;\nvar JSONtostring = JSON.stringify(data);\nvar res = JSONtostring.replace(/PM2.5/gi, \"PM2point5\");\nvar airobj = JSON.parse(res);\n\nvar SiteName;\nvar County;\nvar PM2point5;\nvar time;\ntry{\nSiteName=airobj[n].SiteName;\nCounty=airobj[n].County;\nPM2point5=airobj[n].PM2point5;\ntime=airobj[n].PublishTime;\n}\ncatch(err)\n{\n SiteName=airobj[0].SiteName;\nCounty=airobj[0].County;\nPM2point5=airobj[0].PM2point5;\ntime=airobj[0].PublishTime;   \n}\n\nmsg.payload={\"SiteName\": County+SiteName, \"PM2point5\":PM2point5, \"time\":time};\n\n\n//msg.payload=airobj;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 783,
+        "y": 470,
+        "wires": [
+            [
+                "62a89458.5bf51c",
+                "d86ca1ce.c9da7"
+            ]
+        ]
+    },
+    {
+        "id": "b81ecd4b.f4715",
+        "type": "function",
+        "z": "aa59b6afa33706b9",
+        "name": "Set context.global.airnum",
+        "func": "context.global.airnum=msg.payload.airnum;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 523,
+        "y": 381,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb1f52e4.3364",
+        "type": "json",
+        "z": "aa59b6afa33706b9",
+        "name": "json",
+        "x": 636,
+        "y": 471,
+        "wires": [
+            [
+                "691ff5b6.20c93c"
+            ]
+        ]
+    },
+    {
+        "id": "7ee43c00.e1cb64",
+        "type": "debug",
+        "z": "aa59b6afa33706b9",
+        "name": "jsonobject",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 796,
+        "y": 117,
+        "wires": []
+    }
+]

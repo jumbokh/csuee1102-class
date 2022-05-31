@@ -1,0 +1,337 @@
+[
+    {
+        "id": "1f7e4c8625325406",
+        "type": "inject",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "30917b4d89b33aa1"
+            ]
+        ]
+    },
+    {
+        "id": "4a1ce281a676a2b6",
+        "type": "function",
+        "z": "926c1db3c58ae9fa",
+        "name": "Generate Number",
+        "func": "function between(min, max)\n{\n    var num = Math.floor(Math.random()*(max-min)+min)\n    return num;\n}\nmsg.payload=between(10,35);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 160,
+        "wires": [
+            [
+                "572a238004e31732",
+                "b16f3ae3eab7bc03",
+                "4da59a97e688e276",
+                "d2d4fb295cf39f4a"
+            ]
+        ]
+    },
+    {
+        "id": "217bcec8f5dcf1cb",
+        "type": "debug",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "572a238004e31732",
+        "type": "switch",
+        "z": "926c1db3c58ae9fa",
+        "name": "Judge",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "20",
+                "vt": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21",
+                "vt": "num",
+                "v2": "28",
+                "v2t": "num"
+            },
+            {
+                "t": "gte",
+                "v": "29",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 330,
+        "y": 420,
+        "wires": [
+            [
+                "0e17e5431b748087"
+            ],
+            [
+                "62a28947e7349cd0"
+            ],
+            [
+                "3a0eac109a58ac3b"
+            ]
+        ]
+    },
+    {
+        "id": "0e17e5431b748087",
+        "type": "function",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "func": "var message = \"冷死了, 衣服多穿點\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 400,
+        "wires": [
+            [
+                "18ee06a88ca6c4dc"
+            ]
+        ]
+    },
+    {
+        "id": "62a28947e7349cd0",
+        "type": "function",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "func": "var message = \"氣溫宜人, 適合郊遊\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 480,
+        "wires": [
+            [
+                "18ee06a88ca6c4dc"
+            ]
+        ]
+    },
+    {
+        "id": "3a0eac109a58ac3b",
+        "type": "function",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "func": "var message = \"熱死了, 還是躲在家裡吧\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 560,
+        "wires": [
+            [
+                "18ee06a88ca6c4dc"
+            ]
+        ]
+    },
+    {
+        "id": "18ee06a88ca6c4dc",
+        "type": "ui_text",
+        "z": "926c1db3c58ae9fa",
+        "group": "b6c3e07a683098f8",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "氣象播報",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1140,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "b16f3ae3eab7bc03",
+        "type": "ui_gauge",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "group": "b6c3e07a683098f8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "35",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1130,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4da59a97e688e276",
+        "type": "ui_chart",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "group": "b6c3e07a683098f8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "10",
+        "ymax": "40",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1130,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "30917b4d89b33aa1",
+        "type": "delay",
+        "z": "926c1db3c58ae9fa",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "4a1ce281a676a2b6"
+            ]
+        ]
+    },
+    {
+        "id": "d2d4fb295cf39f4a",
+        "type": "function",
+        "z": "926c1db3c58ae9fa",
+        "name": "註解",
+        "func": "var message = \"溫度 : \" + msg.payload + \" 度\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 340,
+        "wires": [
+            [
+                "774e529dc83c23c8"
+            ]
+        ]
+    },
+    {
+        "id": "774e529dc83c23c8",
+        "type": "ui_text",
+        "z": "926c1db3c58ae9fa",
+        "group": "b6c3e07a683098f8",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1130,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b6c3e07a683098f8",
+        "type": "ui_group",
+        "name": "Random",
+        "tab": "0e8a5d7555ea880c",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0e8a5d7555ea880c",
+        "type": "ui_tab",
+        "name": "Weather",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

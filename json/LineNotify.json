@@ -1,0 +1,178 @@
+[
+    {
+        "id": "ca5d9af1b97a552b",
+        "type": "function",
+        "z": "bb9085dd80e78464",
+        "name": "Temperature",
+        "func": "function between(min, max) {\n    return Math.floor(\n        Math.random() * (max - min) + min\n    );\n}\nvar mesg = between(10, 30);\n\nmsg.payload = mesg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 200,
+        "wires": [
+            [
+                "f4c767a85ab302d7"
+            ]
+        ]
+    },
+    {
+        "id": "f4c767a85ab302d7",
+        "type": "join",
+        "z": "bb9085dd80e78464",
+        "name": "合併10秒數據",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "10",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 460,
+        "y": 300,
+        "wires": [
+            [
+                "398fb6ad579e6ba1",
+                "e5c697f99532d6fc"
+            ]
+        ]
+    },
+    {
+        "id": "398fb6ad579e6ba1",
+        "type": "function",
+        "z": "bb9085dd80e78464",
+        "name": "",
+        "func": "function average(nums) {\n    return nums.reduce((a, b) => a + b,0) / nums.length;\n}\nmsg.payload =  Math.round(average(msg.payload)*10)/10;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 200,
+        "wires": [
+            [
+                "9a8fd7fcf2a7bba7",
+                "a04fd34e0e84129a"
+            ]
+        ],
+        "icon": "node-red-contrib-calc/calculator.png"
+    },
+    {
+        "id": "9a8fd7fcf2a7bba7",
+        "type": "debug",
+        "z": "bb9085dd80e78464",
+        "name": "平均",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "51df55d07927b197",
+        "type": "line-notify",
+        "z": "bb9085dd80e78464",
+        "name": "",
+        "message": "",
+        "contentType": "message",
+        "imageThumbnail": "",
+        "imageUrl": "",
+        "sticker": "default",
+        "stickerPackageId": "1",
+        "stickerId": "1",
+        "silent": false,
+        "creds": "286b8875d71cf1f2",
+        "x": 1000,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a04fd34e0e84129a",
+        "type": "function",
+        "z": "bb9085dd80e78464",
+        "name": "註解",
+        "func": "var message = \"溫度 : \" + msg.payload + \" 度\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 200,
+        "wires": [
+            [
+                "51df55d07927b197"
+            ]
+        ]
+    },
+    {
+        "id": "e5c697f99532d6fc",
+        "type": "debug",
+        "z": "bb9085dd80e78464",
+        "name": "合併",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "730d7d52da64f954",
+        "type": "inject",
+        "z": "bb9085dd80e78464",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "ca5d9af1b97a552b"
+            ]
+        ]
+    },
+    {
+        "id": "286b8875d71cf1f2",
+        "type": "linetoken",
+        "name": "line-notify"
+    }
+]

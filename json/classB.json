@@ -1,0 +1,331 @@
+[
+    {
+        "id": "c4480a92e94bf7fd",
+        "type": "http in",
+        "z": "df1e9bfdf85238f9",
+        "name": "",
+        "url": "/form",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 280,
+        "y": 100,
+        "wires": [
+            [
+                "be55da2e625f258c"
+            ]
+        ]
+    },
+    {
+        "id": "be55da2e625f258c",
+        "type": "template",
+        "z": "df1e9bfdf85238f9",
+        "name": "選班長網頁",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<body>\n\n<p>選一位您心目中理想的班長</p>\n\n<form action=\"/count\">\n  <input type=\"radio\" name=\"name\" value=\"王小明\" cecked> 王小明<br>\n  <input type=\"radio\" name=\"name\" value=\"李大大\">李大大<br>\n  <input type=\"radio\" name=\"name\" value=\"黃芬芳\">黃芬芳  \n  <br><br>\n  <input type=\"submit\">\n</form>\n\n</body>\n</html>",
+        "x": 430.6999816894531,
+        "y": 99.56001281738281,
+        "wires": [
+            [
+                "638cae0ac1c0ef2e"
+            ]
+        ]
+    },
+    {
+        "id": "638cae0ac1c0ef2e",
+        "type": "http response",
+        "z": "df1e9bfdf85238f9",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 614.7599792480469,
+        "y": 98.79000854492188,
+        "wires": []
+    },
+    {
+        "id": "aed89b2c749aa395",
+        "type": "http in",
+        "z": "df1e9bfdf85238f9",
+        "name": "",
+        "url": "/count",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 287.29998779296875,
+        "y": 168.0600128173828,
+        "wires": [
+            [
+                "38e98de692a76115",
+                "13401f9e92e4617e",
+                "aff8c7e22bcc8c79"
+            ]
+        ]
+    },
+    {
+        "id": "0687991b7f073a77",
+        "type": "http response",
+        "z": "df1e9bfdf85238f9",
+        "name": "",
+        "x": 751.2999877929688,
+        "y": 167.9499969482422,
+        "wires": []
+    },
+    {
+        "id": "90ec9c84e456daaa",
+        "type": "template",
+        "z": "df1e9bfdf85238f9",
+        "name": "唱票",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "\n<!DOCTYPE html>\n<html>\n<body>\n<h1>Thank you</h1>\n\n<p1>您投了 {{payload}} 一票</p1>\n</body>\n</html>\n",
+        "x": 576.4799499511719,
+        "y": 167.88002014160156,
+        "wires": [
+            [
+                "0687991b7f073a77",
+                "b6ff3f48b68f6e8a"
+            ]
+        ]
+    },
+    {
+        "id": "38e98de692a76115",
+        "type": "debug",
+        "z": "df1e9bfdf85238f9",
+        "name": "count in",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 453.6199951171875,
+        "y": 226.0900115966797,
+        "wires": []
+    },
+    {
+        "id": "aff8c7e22bcc8c79",
+        "type": "function",
+        "z": "df1e9bfdf85238f9",
+        "name": "累計票數",
+        "func": "\nvar d1=0;\nvar d2=0;\nvar d3=0;\n\n\n// Counter to select from array.\nvar counter1 = context.get('counter1')||0;\nvar counter2 = context.get('counter2')||0;\nvar counter3 =context.get('counter3')||0;\n\nif(msg.payload.name==\"王小明\")\n{\nd1=1;\n}\nelse if(msg.payload.name==\"李大大\")\n{\nd2 =1;\n}\nelse\n{\nd3 =1;\n}\n\ncounter1 = counter1+d1;\ncounter2 = counter2+d2;\ncounter3 = counter3+d3;\n\n \ncontext.set('counter1',counter1);\ncontext.set('counter2',counter2);\ncontext.set('counter3',counter3);\n \n\ncontext.global.cou1=counter1;\ncontext.global.cou2=counter2;\ncontext.global.cou3=counter3;\n\nmsg.payload=\n  {      \"cou1\":counter1,\n         \"cou2\":counter2,\n         \"cou3\":counter3\n  };\n\n\n\nreturn msg;\n\n\n \n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 277.050048828125,
+        "wires": [
+            [
+                "208421f1bc34ee9c"
+            ]
+        ]
+    },
+    {
+        "id": "208421f1bc34ee9c",
+        "type": "debug",
+        "z": "df1e9bfdf85238f9",
+        "name": "count result",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 553.9999694824219,
+        "y": 276.55999755859375,
+        "wires": []
+    },
+    {
+        "id": "6682bf749af94e5e",
+        "type": "inject",
+        "z": "df1e9bfdf85238f9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 299.5699920654297,
+        "y": 341.57000732421875,
+        "wires": [
+            [
+                "1392959b85586dd2"
+            ]
+        ]
+    },
+    {
+        "id": "1392959b85586dd2",
+        "type": "function",
+        "z": "df1e9bfdf85238f9",
+        "name": "產生資料列",
+        "func": "var msg1={};\nvar msg2={};\nvar msg3={};\n\nmsg1.topic=\"王小明\";\nmsg1.payload=context.global.cou1;\n\nmsg2.topic=\"李大大\";\nmsg2.payload=context.global.cou2;\n\nmsg3.topic=\"黃芬芳\";\nmsg3.payload=context.global.cou3;\n\nreturn [msg1, msg2,msg3];",
+        "outputs": "3",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 488.8199768066406,
+        "y": 341.6799621582031,
+        "wires": [
+            [
+                "3fd0116c9804f1fd",
+                "bf7c58293556d5dd"
+            ],
+            [
+                "3fd0116c9804f1fd",
+                "bf7c58293556d5dd"
+            ],
+            [
+                "3fd0116c9804f1fd",
+                "bf7c58293556d5dd"
+            ]
+        ]
+    },
+    {
+        "id": "3fd0116c9804f1fd",
+        "type": "ui_chart",
+        "z": "df1e9bfdf85238f9",
+        "name": "長條圖",
+        "group": "a7e65242.d5b1c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "bar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 770,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "13401f9e92e4617e",
+        "type": "function",
+        "z": "df1e9bfdf85238f9",
+        "name": "監票",
+        "func": "\nmsg.payload=msg.payload.name;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 445,
+        "y": 168.5600128173828,
+        "wires": [
+            [
+                "90ec9c84e456daaa"
+            ]
+        ]
+    },
+    {
+        "id": "bf7c58293556d5dd",
+        "type": "ui_chart",
+        "z": "df1e9bfdf85238f9",
+        "name": "圓餅圖",
+        "group": "a7e65242.d5b1c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "pie",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 770,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b6ff3f48b68f6e8a",
+        "type": "ui_audio",
+        "z": "df1e9bfdf85238f9",
+        "name": "",
+        "group": "a7e65242.d5b1c",
+        "voice": "0",
+        "always": true,
+        "x": 749,
+        "y": 268,
+        "wires": []
+    },
+    {
+        "id": "a7e65242.d5b1c",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "ab7b37f7bb60d542",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ab7b37f7bb60d542",
+        "type": "ui_tab",
+        "name": "class2",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

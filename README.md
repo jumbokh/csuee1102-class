@@ -2,13 +2,16 @@
 ## IOT Applications (shorturl.at/gBMW4)
 ### Basic
 #### 大綱
+* [氣象資料開放平台](https://opendata.cwb.gov.tw/index)
+* [行政院環保署資料開放平台](https://data.epa.gov.tw/paradigm)
+* [空氣品質小時值_高雄市_仁武站](https://data.epa.gov.tw/dataset/detail/AQX_P_237)
+* [PM2.5 開放資料入口網站](https://pm25.lass-net.org/)
+* [g0v](https://v5.airmap.g0v.tw/#/map)
 * ESP32 for Micropython and Thonny
 * Basic Digital and analog Lab
     * DHT11 Temperature and Humidity sensor
     * I2C ssd1306 OLED display [ssd1306 lib](https://github.com/micropython/micropython/blob/master/drivers/display/ssd1306.py)
-    * Sharp dust sensor GP2Y1010AU0F
-    * [PM2.5 開放資料入口網站](https://pm25.lass-net.org/)
-    * [g0v](https://v5.airmap.g0v.tw/#/map)
+    * Sharp dust sensor GP2Y1010AU0F   
 * Internet of Things
     * url Request
     * MQTT

@@ -30,7 +30,7 @@
 * [Lab3. Dust Sensor](https://github.com/jumbokh/csuee1102-class/tree/main/Lab3.DustSensor)
 ### with NetWork
 * [Lab4. WiFi Connect](https://github.com/jumbokh/csuee1102-class/tree/main/Lab4.WiFi)
-* [Lab5. MQTT](https://github.com/jumbokh/csuee1102-class/tree/main/Lab5.%20MQTT)
+* [Lab5. MQTT](https://github.com/jumbokh/csuee1102-class/tree/main/Lab5.%20MQTT) {Ref.[MQTT](https://swf.com.tw/?p=1002)}
 * [Lab6. LineBot](https://github.com/jumbokh/csuee1102-class/tree/main/Lab6.%20LineBot)
 * [Lab7. LASS](https://github.com/jumbokh/csuee1102-class/tree/main/Lab7.%20LASS)
 * [Lab8. url Request](https://github.com/jumbokh/csuee1102-class/tree/main/Lab8.%20URL-Request)

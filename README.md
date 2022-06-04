@@ -30,7 +30,7 @@
 * [Lab3. Dust Sensor](https://github.com/jumbokh/csuee1102-class/tree/main/Lab3.DustSensor)
 ### with NetWork
 * [Lab4. WiFi Connect](https://github.com/jumbokh/csuee1102-class/tree/main/Lab4.WiFi) {Ref.[WiFi](http://www.1zlab.com/wiki/micropython-esp32/wifi/)}
-* [Lab5. MQTT](https://github.com/jumbokh/csuee1102-class/tree/main/Lab5.%20MQTT) {Ref.[MQTT](https://swf.com.tw/?p=1002)}
+* [Lab5. MQTT](https://github.com/jumbokh/csuee1102-class/tree/main/Lab5.%20MQTT) {Ref.[MQTT](https://swf.com.tw/?p=1002)} {pdf. [MQTT](https://github.com/jumbokh/csuee1102-class/blob/main/refers/MP32105_ch%2012.pdf)}
 * [Lab6. LineBot](https://github.com/jumbokh/csuee1102-class/tree/main/Lab6.%20LineBot)
 * [Lab7. LASS](https://github.com/jumbokh/csuee1102-class/tree/main/Lab7.%20LASS)
 * [Lab8. url Request](https://github.com/jumbokh/csuee1102-class/tree/main/Lab8.%20URL-Request)

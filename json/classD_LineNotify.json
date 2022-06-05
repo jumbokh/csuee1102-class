@@ -1,0 +1,335 @@
+[
+    {
+        "id": "e272010004fb9102",
+        "type": "mqtt in",
+        "z": "7d4fbae144bea909",
+        "name": "Room Temperature",
+        "topic": "csuclass/LASS/T",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "35133da83fc53b2c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 200,
+        "wires": [
+            [
+                "2b783be1b1be6b60",
+                "b4c2ff0f6ca5b905",
+                "0e235f8b28500809"
+            ]
+        ]
+    },
+    {
+        "id": "2b783be1b1be6b60",
+        "type": "switch",
+        "z": "7d4fbae144bea909",
+        "name": "classifier",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "20",
+                "vt": "str"
+            },
+            {
+                "t": "btwn",
+                "v": "21",
+                "vt": "num",
+                "v2": "25",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "26",
+                "vt": "num",
+                "v2": "29",
+                "v2t": "num"
+            },
+            {
+                "t": "gte",
+                "v": "30",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 500,
+        "y": 200,
+        "wires": [
+            [
+                "b33207097763334f"
+            ],
+            [
+                "c0bac0e95cc0ce39"
+            ],
+            [
+                "a11f3cb564382ea3"
+            ],
+            [
+                "e7b33e780a4ea452"
+            ]
+        ]
+    },
+    {
+        "id": "b33207097763334f",
+        "type": "function",
+        "z": "7d4fbae144bea909",
+        "name": "",
+        "func": "var message = \"冷死了, 衣服多穿點\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 140,
+        "wires": [
+            [
+                "573146204237c21d",
+                "441c648ba58b2895"
+            ]
+        ]
+    },
+    {
+        "id": "c0bac0e95cc0ce39",
+        "type": "function",
+        "z": "7d4fbae144bea909",
+        "name": "",
+        "func": "var message = \"氣溫宜人, 適合郊遊\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 200,
+        "wires": [
+            [
+                "573146204237c21d",
+                "441c648ba58b2895"
+            ]
+        ]
+    },
+    {
+        "id": "a11f3cb564382ea3",
+        "type": "function",
+        "z": "7d4fbae144bea909",
+        "name": "",
+        "func": "var message = \"氣溫宜人\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 260,
+        "wires": [
+            [
+                "573146204237c21d",
+                "441c648ba58b2895"
+            ]
+        ]
+    },
+    {
+        "id": "e7b33e780a4ea452",
+        "type": "function",
+        "z": "7d4fbae144bea909",
+        "name": "",
+        "func": "var message = \"熱死了, 還是躲在家裡吧\";\nmsg.payload = message;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "573146204237c21d",
+                "441c648ba58b2895"
+            ]
+        ]
+    },
+    {
+        "id": "573146204237c21d",
+        "type": "ui_text",
+        "z": "7d4fbae144bea909",
+        "group": "9fe087a4069f7f3f",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "氣溫報告",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 980,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b4c2ff0f6ca5b905",
+        "type": "ui_gauge",
+        "z": "7d4fbae144bea909",
+        "name": "溫度計",
+        "group": "9fe087a4069f7f3f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "度C",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0e235f8b28500809",
+        "type": "ui_chart",
+        "z": "7d4fbae144bea909",
+        "name": "",
+        "group": "9fe087a4069f7f3f",
+        "order": 2,
+        "width": "12",
+        "height": "4",
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "10",
+        "ymax": "40",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 490,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "441c648ba58b2895",
+        "type": "line-notify",
+        "z": "7d4fbae144bea909",
+        "name": "氣象預報",
+        "message": "",
+        "contentType": "message",
+        "imageThumbnail": "",
+        "imageUrl": "",
+        "sticker": "default",
+        "stickerPackageId": "1",
+        "stickerId": "1",
+        "silent": false,
+        "creds": "286b8875d71cf1f2",
+        "x": 980,
+        "y": 140,
+        "wires": [
+            [
+                "adedc13e45866a77"
+            ]
+        ]
+    },
+    {
+        "id": "adedc13e45866a77",
+        "type": "debug",
+        "z": "7d4fbae144bea909",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "35133da83fc53b2c",
+        "type": "mqtt-broker",
+        "name": "mqttgo",
+        "broker": "mqttgo.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "9fe087a4069f7f3f",
+        "type": "ui_group",
+        "name": "Tab4",
+        "tab": "2f14e750a5f3c453",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "286b8875d71cf1f2",
+        "type": "linetoken",
+        "name": "line-notify",
+        "credentials": {}
+    },
+    {
+        "id": "2f14e750a5f3c453",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
